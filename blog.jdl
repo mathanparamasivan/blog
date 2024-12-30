@@ -1,0 +1,26 @@
+
+entity Blog {
+	name String required minlength(2)
+    handle String required minlength(2)
+}
+
+entity Post {
+	title String required
+    content String required
+    date Instant required
+}
+
+entity Tag {
+	name String required
+}
+
+relationship ManyToOne {
+	Blog{user(login)} to User with builtInEntity
+	Post{blog(name)} to Blog
+}
+
+relationship ManyToMany {
+	 Post{tag(name)} to Tag
+}
+
+paginate Post, Tag with infinite-scroll
